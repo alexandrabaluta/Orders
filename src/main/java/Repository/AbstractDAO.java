@@ -74,6 +74,7 @@ public class AbstractDAO<T> {
         sb.append("DELETE FROM ");
         sb.append(type.getSimpleName());
         sb.append(" WHERE ");
+        sb.append(type.getSimpleName());
         sb.append(field);
         sb.append(" = ?");
         return sb.toString();
@@ -106,6 +107,7 @@ public class AbstractDAO<T> {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         String query = createFindAllQuery();
+
         try {
             connection = DatabaseConnection.getConnection();
             statement = connection.prepareStatement(query);
@@ -181,19 +183,7 @@ public class AbstractDAO<T> {
                 }
                 list.add(instance);
             }
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (IntrospectionException e) {
+        } catch (InstantiationException | IntrospectionException | IllegalAccessException | SecurityException | IllegalArgumentException | InvocationTargetException | SQLException e) {
             e.printStackTrace();
         }
         return list;

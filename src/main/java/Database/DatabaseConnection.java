@@ -11,11 +11,10 @@ import java.util.logging.Logger;
 public class DatabaseConnection {
 
     private static final Logger LOGGER = Logger.getLogger(DatabaseConnection.class.getName());
-    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String DBURL = "jdbc:mysql://127.0.0.1:3306/pt3";
+    private static final String DBURL = "jdbc:mysql://localhost:3306/school?useSSL=false";
     private static final String USER = "root";
-    private static final String PASS = "admin";
-
+    private static final String PASS = "1234";
+    private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static DatabaseConnection singleInstance = new DatabaseConnection();
 
     public DatabaseConnection() {

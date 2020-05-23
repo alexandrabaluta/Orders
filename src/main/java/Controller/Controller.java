@@ -4,6 +4,7 @@ import Model.Client;
 import Model.Product;
 import Repository.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class Controller {
@@ -53,7 +54,7 @@ public class Controller {
         return product.delete(id);
     }
 
-    public void orderProduct(int clientID, int productID, int quantity, int shippingID){
-        orders.addOrder(clientID,  productID,  quantity, shippingID);
+    public void orderProduct(int clientID, int productID, int quantity) throws SQLException {
+        orders.addOrder(clientID,  productID,  quantity);
     }
 }

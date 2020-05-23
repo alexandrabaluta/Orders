@@ -10,10 +10,9 @@ import java.util.logging.Logger;
 public class RepoOrders {
 
     protected static final Logger LOGGER = Logger.getLogger(RepoOrders.class.getName());
-    private final static String checkStatementString = "SELECT quantity FROM Product WHERE ID = ? ";
-    private final static String addStatementString = "INSERT INTO Orders(clientID, productID, shippingID)" +
-            " VALUES(?,?,?); ";
-    private final static String updateStatementString = "UPDATE Product SET Quantity = ? WHERE ID = ? ; ";
+    private final static String checkStatementString = "SELECT quantity FROM Product WHERE productID = ? ";
+    private final static String addStatementString = "INSERT INTO Orders(clientID, productID) " + "VALUES (?, ?);";
+    private final static String updateStatementString = "UPDATE Product SET Quantity = ? WHERE productID = ? ; ";
 
     /**
      * Verifica in tabelul Orders daca cantitatea dorita de client
@@ -50,7 +49,7 @@ public class RepoOrders {
         return availableQuantity;
     }
 
-    public static void addOrder(int clientID, int productID, int quantity, int shippingID){
+    public static void addOrder(int clientID, int productID, int quantity) throws SQLException {
         Connection dbConnection = DatabaseConnection.getConnection();
         int cantitateVeche = checkUnderStock(quantity,productID);
         int cantitateNoua = cantitateVeche - quantity;
@@ -61,7 +60,6 @@ public class RepoOrders {
                 insertStatement = dbConnection.prepareStatement(addStatementString, Statement.RETURN_GENERATED_KEYS);
                 insertStatement.setInt(1, clientID);
                 insertStatement.setInt(2, productID);
-                insertStatement.setInt(3, shippingID);
                 insertStatement.executeUpdate();
 
             } catch (SQLException e) {
@@ -70,7 +68,15 @@ public class RepoOrders {
                 DatabaseConnection.close(insertStatement);
                 DatabaseConnection.close(dbConnection);
             }
-            updateProducts(cantitateNoua,productID); // se actualizeaza si produsul din tabelul Product
+            updateProducts(cantitateNoua,productID);
+            /*Connection dbConnection1 = DatabaseConnection.getConnection();
+            String query= "SELECT name FROM Client WHERE clientID ='" + clientID + "' ";
+            Statement st= dbConnection1.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                String name= rs.getString("name");
+                System.out.println(name);
+            } */
         }
     }
 

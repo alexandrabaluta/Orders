@@ -1,22 +1,22 @@
 package Model;
 
-public class Order {
+public class Orders {
     private int orderID;
     private int clientID;
     private int productID;
-    private int shippingID;
 
-    public Order(int orderID, int clientID, int productID, int shippingID) {
+
+    public Orders(int orderID, int clientID, int productID) {
         this.orderID = orderID;
         this.clientID = clientID;
         this.productID = productID;
-        this.shippingID = shippingID;
+
     }
 
-    public Order(int clientID, int productID, int shippingID) {
+    public Orders(int clientID, int productID) {
         this.clientID = clientID;
         this.productID = productID;
-        this.shippingID = shippingID;
+
     }
 
     public int getOrderID() {
@@ -43,11 +43,5 @@ public class Order {
         this.productID = productID;
     }
 
-    public int getShippingID() {
-        return shippingID;
-    }
 
-    public void setShippingID(int shippingID) {
-        this.shippingID = shippingID;
-    }
 }

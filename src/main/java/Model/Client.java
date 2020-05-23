@@ -53,4 +53,13 @@ public class Client {
         this.age = age;
     }
 
+    @Override
+    public String toString() {
+        return "Client{" +
+                "clientID=" + clientID +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", age=" + age +
+                '}';
+    }
 }
